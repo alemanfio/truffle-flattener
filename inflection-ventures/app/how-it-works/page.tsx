@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useSpring } from 'framer-motion'
 import {
   HiArrowRight,
   HiChevronDown,
@@ -18,7 +18,6 @@ import {
   HiShieldCheck,
   HiScale,
 } from 'react-icons/hi'
-import type { Metadata } from 'next'
 
 function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null)
@@ -153,8 +152,19 @@ const governance = {
 export default function HowItWorksPage() {
   const [openStep, setOpenStep] = useState<number | null>(null)
 
+  // Scroll-based reading progress bar
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 })
+
   return (
     <>
+      {/* Reading progress bar — fixed at top below navbar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-blue-500 origin-left z-50 shadow-md"
+        style={{ scaleX }}
+        aria-hidden="true"
+      />
+
       {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-slate-950 to-slate-900">
         <div className="container-xl text-center">

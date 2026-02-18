@@ -4,13 +4,13 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import {
-  HiArrowRight, HiCheckCircle, HiTrendingUp, HiBeaker, HiChip,
-  HiGlobeAlt, HiStar, HiShieldCheck, HiLightningBolt,
+  HiArrowRight, HiCheckCircle, HiBeaker, HiChip,
 } from 'react-icons/hi'
 import {
   FaDna, FaRocket, FaBrain, FaPills, FaMicroscope, FaHeartbeat,
-  FaSatellite, FaSpaceShuttle, FaMoon, FaNetworkWired, FaShieldAlt, FaEye,
+  FaSatellite, FaMoon, FaShieldAlt, FaEye,
 } from 'react-icons/fa'
+import DonutChart from '@/components/DonutChart'
 
 function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null)
@@ -72,45 +72,21 @@ const selectionCriteria = [
 ]
 
 const portfolioAllocation = [
-  { label: 'Longevity', pct: 50, color: 'bg-emerald-500' },
-  { label: 'Space Economy', pct: 50, color: 'bg-blue-700' },
+  { label: 'Longevity', pct: 50, color: 'bg-emerald-500', hex: '#10B981' },
+  { label: 'Space Economy', pct: 50, color: 'bg-blue-700', hex: '#1D4ED8' },
 ]
 
 const stageAllocation = [
-  { label: 'Seed', pct: 40, color: 'bg-purple-500' },
-  { label: 'Series A', pct: 45, color: 'bg-blue-500' },
-  { label: 'Series B+', pct: 15, color: 'bg-slate-400' },
+  { label: 'Seed', pct: 40, color: 'bg-purple-500', hex: '#A855F7' },
+  { label: 'Series A', pct: 45, color: 'bg-blue-500', hex: '#3B82F6' },
+  { label: 'Series B+', pct: 15, color: 'bg-slate-400', hex: '#94A3B8' },
 ]
 
 const geoAllocation = [
-  { label: 'Western Europe', pct: 60, color: 'bg-blue-700' },
-  { label: 'UK & Israel', pct: 25, color: 'bg-emerald-500' },
-  { label: 'Global / US', pct: 15, color: 'bg-purple-500' },
+  { label: 'Western Europe', pct: 60, color: 'bg-blue-700', hex: '#1D4ED8' },
+  { label: 'UK & Israel', pct: 25, color: 'bg-emerald-500', hex: '#10B981' },
+  { label: 'Global / US', pct: 15, color: 'bg-purple-500', hex: '#A855F7' },
 ]
-
-function AllocationBar({ data }: { data: { label: string; pct: number; color: string }[] }) {
-  return (
-    <div className="space-y-3">
-      {data.map((item) => (
-        <div key={item.label}>
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-slate-700 font-medium">{item.label}</span>
-            <span className="text-slate-500">{item.pct}%</span>
-          </div>
-          <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
-            <motion.div
-              className={`h-full rounded-full ${item.color}`}
-              initial={{ width: 0 }}
-              whileInView={{ width: `${item.pct}%` }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-              viewport={{ once: true }}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
 
 export default function InvestmentFocusPage() {
   return (
@@ -291,21 +267,18 @@ export default function InvestmentFocusPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <FadeIn delay={0.1}>
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-4">Sector Split</h3>
-                <AllocationBar data={portfolioAllocation} />
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex justify-center">
+                <DonutChart data={portfolioAllocation} title="Sector Split" />
               </div>
             </FadeIn>
             <FadeIn delay={0.2}>
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-4">Stage Allocation</h3>
-                <AllocationBar data={stageAllocation} />
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex justify-center">
+                <DonutChart data={stageAllocation} title="Stage Allocation" />
               </div>
             </FadeIn>
             <FadeIn delay={0.3}>
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-4">Geography</h3>
-                <AllocationBar data={geoAllocation} />
+              <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex justify-center">
+                <DonutChart data={geoAllocation} title="Geography" />
               </div>
             </FadeIn>
           </div>

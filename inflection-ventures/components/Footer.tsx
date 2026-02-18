@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { FaLinkedin, FaXTwitter, FaTelegram } from 'react-icons/fa6'
 import { HiArrowRight } from 'react-icons/hi'
+import CalendlyModal from '@/components/CalendlyModal'
 
 const footerLinks = {
   'Fund': [
@@ -22,23 +23,43 @@ const footerLinks = {
   'Contact': [
     { label: 'hello@inflection.vc', href: 'mailto:hello@inflection.vc' },
     { label: 'Luxembourg, EU', href: '#' },
-    { label: 'Schedule a Call', href: '#' },
-    { label: 'Media & Press', href: '#' },
+    { label: 'Media & Press', href: 'mailto:press@inflection.vc' },
   ],
 }
+
+// Replace with your Formspree form ID at https://formspree.io
+// e.g. 'https://formspree.io/f/xpwzabcd'
+const NEWSLETTER_FORM_URL = 'https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
+  const [calendlyOpen, setCalendlyOpen] = useState(false)
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Would connect to Formspree or similar
-    setSubmitted(true)
-    setEmail('')
+    setError('')
+    try {
+      const res = await fetch(NEWSLETTER_FORM_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email, source: 'footer-newsletter' }),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+        setEmail('')
+      } else {
+        setError('Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Network error. Please try again.')
+    }
   }
 
   return (
+    <>
+    <CalendlyModal open={calendlyOpen} onClose={() => setCalendlyOpen(false)} />
     <footer className="bg-slate-950 text-slate-400">
       {/* Main Footer */}
       <div className="container-xl py-16">
@@ -83,6 +104,7 @@ export default function Footer() {
                   </button>
                 </form>
               )}
+              {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
             </div>
 
             {/* Social Links */}
@@ -109,6 +131,16 @@ export default function Footer() {
                 <FaTelegram size={16} />
               </a>
             </div>
+
+            <button
+              onClick={() => setCalendlyOpen(true)}
+              className="mt-5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Schedule an intro call →
+            </button>
           </div>
 
           {/* Links Columns */}
@@ -146,5 +178,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   )
 }

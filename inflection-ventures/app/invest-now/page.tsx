@@ -1,14 +1,14 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import {
   HiArrowRight, HiCheckCircle, HiXCircle, HiChevronDown, HiShieldCheck,
-  HiLockClosed, HiCurrencyEuro, HiClipboardCheck, HiUserGroup, HiTrendingUp,
+  HiCurrencyEuro, HiClipboardCheck, HiUserGroup, HiTrendingUp,
   HiStar, HiPhone, HiMail, HiCalendar,
 } from 'react-icons/hi'
-import { FaDna, FaRocket } from 'react-icons/fa'
+import CalendlyModal from '@/components/CalendlyModal'
 
 function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null)
@@ -106,13 +106,32 @@ function FaqItem({ faq, index }: { faq: { q: string; a: string }; index: number 
   )
 }
 
+// Replace with your Formspree form IDs from https://formspree.io
+const WAITLIST_FORM_URL = 'https://formspree.io/f/REPLACE_WITH_YOUR_WAITLIST_FORM_ID'
+
 export default function InvestNowPage() {
   const [waitlistEmail, setWaitlistEmail] = useState('')
   const [waitlistName, setWaitlistName] = useState('')
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false)
+  const [waitlistError, setWaitlistError] = useState('')
+  const [waitlistLoading, setWaitlistLoading] = useState(false)
+  const [calendlyOpen, setCalendlyOpen] = useState(false)
+
+  // Live "amount raised" demo counter
+  const [raised, setRaised] = useState(127400)
+  const TARGET = 5_000_000
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRaised((prev) => Math.min(prev + Math.floor(Math.random() * 600 + 150), TARGET))
+    }, 3800)
+    return () => clearInterval(interval)
+  }, [])
+  const pct = Math.round((raised / TARGET) * 100)
 
   return (
     <>
+      <CalendlyModal open={calendlyOpen} onClose={() => setCalendlyOpen(false)} />
+
       {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-slate-950 to-blue-950">
         <div className="container-xl text-center">
@@ -128,16 +147,49 @@ export default function InvestNowPage() {
                 in tomorrow's science
               </span>
             </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10">
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
               Join 200+ investors backing the companies that will define longevity
               and the space economy. Starting from €10,000.
             </p>
-            <a
-              href="#start"
-              className="btn-primary text-base px-8 py-4"
-            >
-              Start the Process <HiArrowRight />
-            </a>
+
+            {/* Live raised tracker */}
+            <div className="max-w-sm mx-auto mb-8">
+              <div className="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-5">
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="text-slate-400 flex items-center gap-1.5">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse inline-block" />
+                    Fund I raised
+                  </span>
+                  <span className="text-white font-bold tabular-nums">
+                    €{raised.toLocaleString('de-DE')}
+                  </span>
+                </div>
+                <div className="h-2 bg-white/10 rounded-full overflow-hidden mb-2">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${pct}%` }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-slate-500">
+                  <span>{pct}% of target</span>
+                  <span>Target: €5,000,000</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="#start" className="btn-primary text-base px-8 py-4">
+                Start the Process <HiArrowRight />
+              </a>
+              <button
+                onClick={() => setCalendlyOpen(true)}
+                className="btn-secondary text-base px-8 py-4"
+              >
+                <HiCalendar /> Schedule a Call
+              </button>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -418,7 +470,27 @@ export default function InvestNowPage() {
               ) : (
                 <form
                   className="space-y-4"
-                  onSubmit={(e) => { e.preventDefault(); setWaitlistSubmitted(true) }}
+                  onSubmit={async (e) => {
+                    e.preventDefault()
+                    setWaitlistError('')
+                    setWaitlistLoading(true)
+                    try {
+                      const res = await fetch(WAITLIST_FORM_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                        body: JSON.stringify({ name: waitlistName, email: waitlistEmail, source: 'fund-waitlist' }),
+                      })
+                      if (res.ok) {
+                        setWaitlistSubmitted(true)
+                      } else {
+                        setWaitlistError('Something went wrong. Please email us at invest@inflection.vc')
+                      }
+                    } catch {
+                      setWaitlistError('Network error. Please try again or email us directly.')
+                    } finally {
+                      setWaitlistLoading(false)
+                    }
+                  }}
                 >
                   <input
                     type="text"
@@ -436,8 +508,13 @@ export default function InvestNowPage() {
                     required
                     className="w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                   />
-                  <button type="submit" className="btn-primary w-full justify-center text-base py-3.5">
-                    Join Waitlist <HiArrowRight />
+                  {waitlistError && <p className="text-red-500 text-sm">{waitlistError}</p>}
+                  <button
+                    type="submit"
+                    disabled={waitlistLoading}
+                    className="btn-primary w-full justify-center text-base py-3.5 disabled:opacity-60 disabled:cursor-not-allowed"
+                  >
+                    {waitlistLoading ? 'Joining...' : <>Join Waitlist <HiArrowRight /></>}
                   </button>
                   <p className="text-xs text-slate-400">No spam. Unsubscribe any time.</p>
                 </form>
@@ -488,7 +565,12 @@ export default function InvestNowPage() {
               <div className="flex flex-col items-center gap-2">
                 <HiCalendar className="text-emerald-600" size={24} />
                 <p className="font-semibold text-slate-900 text-sm">Book a Call</p>
-                <a href="#" className="text-emerald-600 text-sm hover:underline">Schedule 20 min →</a>
+                <button
+                  onClick={() => setCalendlyOpen(true)}
+                  className="text-emerald-600 text-sm hover:underline font-medium"
+                >
+                  Schedule 20 min →
+                </button>
               </div>
             </FadeIn>
             <FadeIn delay={0.2}>
