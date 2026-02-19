@@ -107,7 +107,7 @@ function FaqItem({ faq, index }: { faq: { q: string; a: string }; index: number 
 }
 
 // Replace with your Formspree form IDs from https://formspree.io
-const WAITLIST_FORM_URL = 'https://formspree.io/f/REPLACE_WITH_YOUR_WAITLIST_FORM_ID'
+const WAITLIST_FORM_URL = 'https://formspree.io/f/mbdakbbw'
 
 export default function InvestNowPage() {
   const [waitlistEmail, setWaitlistEmail] = useState('')

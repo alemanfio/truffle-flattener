@@ -29,7 +29,7 @@ const footerLinks = {
 
 // Replace with your Formspree form ID at https://formspree.io
 // e.g. 'https://formspree.io/f/xpwzabcd'
-const NEWSLETTER_FORM_URL = 'https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID'
+const NEWSLETTER_FORM_URL = 'https://formspree.io/f/mbdakbbw'
 
 export default function Footer() {
   const [email, setEmail] = useState('')
