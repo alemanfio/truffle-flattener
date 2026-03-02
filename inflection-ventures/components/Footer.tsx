@@ -10,6 +10,7 @@ const footerLinks = {
   'Fund': [
     { label: 'How It Works', href: '/how-it-works' },
     { label: 'Investment Focus', href: '/investment-focus' },
+    { label: 'About', href: '/about' },
     { label: 'Community', href: '/community' },
     { label: 'Invest Now', href: '/invest-now' },
   ],

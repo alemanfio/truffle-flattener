@@ -4,13 +4,14 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import {
-  HiArrowRight, HiCheckCircle, HiBeaker, HiChip,
+  HiArrowRight, HiCheckCircle, HiBeaker, HiChip, HiXCircle, HiExclamation,
 } from 'react-icons/hi'
 import {
   FaDna, FaRocket, FaBrain, FaPills, FaMicroscope, FaHeartbeat,
   FaSatellite, FaMoon, FaShieldAlt, FaEye,
 } from 'react-icons/fa'
 import DonutChart from '@/components/DonutChart'
+import ROICalculator from '@/components/ROICalculator'
 
 function FadeIn({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null)
@@ -46,6 +47,7 @@ const longevityTimeline = [
   { year: '2018', event: 'Senolytics enter Phase I clinical trials' },
   { year: '2021', event: 'Altos Labs raises $3B — reprogramming goes mainstream' },
   { year: '2024', event: 'First longevity drugs in Phase II/III trials' },
+  { year: '2026', event: 'Longevity-focused biotech IPOs, FDA guidance on aging intervention trials' },
   { year: '2030+', event: 'First approved longevity therapeutics reach market' },
 ]
 
@@ -59,16 +61,25 @@ const spaceTimeline = [
 ]
 
 const selectionCriteria = [
-  'Technology with 10-year defensible moat',
-  'Founding team with domain PhD or operator experience',
-  'Addressable market >€1B in 10 years',
+  'Proprietary technology with defensible competitive moat',
+  'Founding team with domain expertise (PhD or 5+ years operator experience)',
+  'Addressable market >€1B within 10 years',
   'Clear regulatory pathway (especially biotech/aerospace)',
-  'Evidence of early traction: data, pilots, or LOIs',
-  'Aligned with longevity or space economy thesis',
+  'Evidence of early traction: data, pilots, or letters of intent',
+  'Strong alignment with longevity or space economy thesis',
   'Reasonable valuation relative to stage and traction',
-  'Potential for 10× return in base case scenario',
+  'Potential for 10×+ return in success scenario (3–5× base case)',
   'ESG and ethical research standards met',
-  'Co-investors of institutional quality',
+  'Institutional-quality due diligence process',
+]
+
+const exclusions = [
+  'Financial services, fintech, or insurtech companies',
+  'Real estate and property technology',
+  'Consumer software without deep tech moat',
+  'Companies requiring >€500K initial investment',
+  'Pre-revenue companies with >18 months to market',
+  'Any sector outside longevity or space economy',
 ]
 
 const portfolioAllocation = [
@@ -77,15 +88,15 @@ const portfolioAllocation = [
 ]
 
 const stageAllocation = [
-  { label: 'Seed', pct: 40, color: 'bg-purple-500', hex: '#A855F7' },
-  { label: 'Series A', pct: 45, color: 'bg-blue-500', hex: '#3B82F6' },
-  { label: 'Series B+', pct: 15, color: 'bg-slate-400', hex: '#94A3B8' },
+  { label: 'Pre-seed', pct: 20, color: 'bg-slate-400', hex: '#94A3B8' },
+  { label: 'Seed', pct: 50, color: 'bg-purple-500', hex: '#A855F7' },
+  { label: 'Series A', pct: 30, color: 'bg-blue-500', hex: '#3B82F6' },
 ]
 
 const geoAllocation = [
-  { label: 'Western Europe', pct: 60, color: 'bg-blue-700', hex: '#1D4ED8' },
-  { label: 'UK & Israel', pct: 25, color: 'bg-emerald-500', hex: '#10B981' },
-  { label: 'Global / US', pct: 15, color: 'bg-purple-500', hex: '#A855F7' },
+  { label: 'EU (Continental)', pct: 55, color: 'bg-blue-700', hex: '#1D4ED8' },
+  { label: 'UK', pct: 15, color: 'bg-emerald-500', hex: '#10B981' },
+  { label: 'US & Other', pct: 30, color: 'bg-purple-500', hex: '#A855F7' },
 ]
 
 export default function InvestmentFocusPage() {
@@ -127,7 +138,6 @@ export default function InvestmentFocusPage() {
       {/* LONGEVITY SECTION */}
       <section className="py-24 bg-white">
         <div className="container-xl">
-          {/* Stats row */}
           <FadeIn className="mb-16">
             <div className="flex items-center gap-4 mb-8">
               <div className="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/30">
@@ -140,7 +150,7 @@ export default function InvestmentFocusPage() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
               {[
-                { stat: '€600B', label: 'Global longevity market 2025' },
+                { stat: '€600B+', label: 'Global longevity market by 2030' },
                 { stat: '20+', label: 'Biomarkers of ageing identified' },
                 { stat: '$50B+', label: 'VC invested in longevity 2020–24' },
                 { stat: '2B', label: 'People aged 60+ by 2050' },
@@ -159,8 +169,7 @@ export default function InvestmentFocusPage() {
             </p>
           </FadeIn>
 
-          {/* 6 focus area cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {longevityFocusAreas.map((area, i) => (
               <FadeIn key={area.title} delay={i * 0.08}>
                 <div className="card p-6 h-full border-emerald-100">
@@ -174,11 +183,25 @@ export default function InvestmentFocusPage() {
             ))}
           </div>
 
-          {/* Why Now Timeline */}
+          {/* Example Portfolio Fit — Longevity */}
+          <FadeIn className="mb-16">
+            <div className="border border-emerald-200 bg-emerald-50 rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-lg">📦</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-emerald-700">Example Portfolio Fit</span>
+              </div>
+              <p className="text-slate-700 text-sm leading-relaxed">
+                A Cambridge-based biotech developing senolytic therapies targeting p16⁺ senescent cells.
+                Phase I clinical data showing 40% reduction in senescent cell burden. Seed stage at €5M
+                valuation, founded by former Calico and Genentech scientists with 3 <em>Nature</em> publications.
+              </p>
+            </div>
+          </FadeIn>
+
           <FadeIn>
             <h3 className="text-xl font-bold text-slate-900 mb-6">Why now? The longevity inflection</h3>
             <div className="relative pl-6 border-l-2 border-emerald-200 space-y-4">
-              {longevityTimeline.map((point, i) => (
+              {longevityTimeline.map((point) => (
                 <div key={point.year} className="relative">
                   <div className="absolute -left-[25px] w-4 h-4 rounded-full bg-emerald-500 border-2 border-white shadow" />
                   <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">{point.year}</span>
@@ -205,7 +228,7 @@ export default function InvestmentFocusPage() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
               {[
-                { stat: '€1.8T', label: 'Space economy projected 2035' },
+                { stat: '€850B+', label: 'Space economy projected by 2030' },
                 { stat: '10×', label: 'Launch cost reduction since 2015' },
                 { stat: '2,800+', label: 'Active satellites in orbit today' },
                 { stat: '$30B+', label: 'Private space investment 2023' },
@@ -225,7 +248,7 @@ export default function InvestmentFocusPage() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {spaceFocusAreas.map((area, i) => (
               <FadeIn key={area.title} delay={i * 0.08}>
                 <div className="card p-6 h-full border-blue-100 bg-white">
@@ -238,6 +261,21 @@ export default function InvestmentFocusPage() {
               </FadeIn>
             ))}
           </div>
+
+          {/* Example Portfolio Fit — Space */}
+          <FadeIn className="mb-16">
+            <div className="border border-blue-200 bg-blue-50 rounded-2xl p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-lg">📦</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-blue-700">Example Portfolio Fit</span>
+              </div>
+              <p className="text-slate-700 text-sm leading-relaxed">
+                Berlin-based small satellite manufacturer producing 100 kg Earth observation satellites at
+                €2M per unit. Series A at €15M valuation. Two satellites successfully launched, generating
+                €5M ARR from ESA and commercial contracts. Proprietary propulsion system with 30% cost advantage.
+              </p>
+            </div>
+          </FadeIn>
 
           <FadeIn>
             <h3 className="text-xl font-bold text-slate-900 mb-6">Why now? The space inflection</h3>
@@ -284,7 +322,7 @@ export default function InvestmentFocusPage() {
           </div>
 
           {/* Selection Criteria */}
-          <FadeIn>
+          <FadeIn className="mb-8">
             <div className="bg-slate-900 rounded-3xl p-8 lg:p-12">
               <h3 className="text-2xl font-bold text-white mb-8">Our investment selection criteria</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -297,11 +335,65 @@ export default function InvestmentFocusPage() {
               </div>
             </div>
           </FadeIn>
+
+          {/* What We Exclude */}
+          <FadeIn>
+            <div className="border border-slate-200 rounded-3xl p-8 lg:p-10 bg-slate-50">
+              <h3 className="text-xl font-bold text-slate-900 mb-2">What we don't invest in</h3>
+              <p className="text-slate-500 text-sm mb-6">
+                To maintain focus and ensure ELTIF compliance, we exclude:
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {exclusions.map((item, i) => (
+                  <div key={i} className="flex gap-3 items-start">
+                    <HiXCircle className="text-red-400 shrink-0 mt-0.5" size={18} />
+                    <p className="text-slate-600 text-sm">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Risk Disclosure */}
+      <section className="py-10 bg-white">
+        <div className="container-xl">
+          <FadeIn>
+            <div className="border border-yellow-300 bg-yellow-50 rounded-2xl p-6 flex gap-4">
+              <HiExclamation className="text-yellow-500 shrink-0 mt-0.5" size={24} />
+              <div>
+                <p className="font-bold text-yellow-800 mb-1">Important Investment Considerations</p>
+                <p className="text-yellow-700 text-sm leading-relaxed">
+                  Venture capital investments are high-risk and illiquid. Typical holding period is 7–10 years
+                  with no guarantee of returns. Many portfolio companies will fail. Portfolio returns depend on
+                  a small number of successful exits. Only invest capital you can afford to lose and don't need
+                  for at least 10 years.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ROI Calculator */}
+      <section className="py-24 bg-slate-50">
+        <div className="container-xl">
+          <FadeIn className="text-center mb-12">
+            <span className="section-badge mb-4">Interactive Tool</span>
+            <h2 className="section-title mb-4">Calculate your potential returns</h2>
+            <p className="section-subtitle max-w-xl mx-auto">
+              Adjust the sliders to model different investment scenarios. Projections are illustrative only.
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <ROICalculator />
+          </FadeIn>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-slate-50">
+      <section className="py-16 bg-white">
         <div className="container-xl text-center">
           <FadeIn>
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to be part of the future?</h2>
