@@ -68,7 +68,7 @@ const selectionCriteria = [
   'Evidence of early traction: data, pilots, or letters of intent',
   'Strong alignment with longevity or space economy thesis',
   'Reasonable valuation relative to stage and traction',
-  'Potential for 10×+ return in success scenario (3–5× base case)',
+  'Potential for 10×+ return in success scenario',
   'ESG and ethical research standards met',
   'Institutional-quality due diligence process',
 ]
