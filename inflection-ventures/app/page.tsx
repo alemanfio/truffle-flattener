@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import {
@@ -191,15 +191,6 @@ export default function HomePage() {
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
-  /* Live counter */
-  const [raised, setRaised] = useState(127400)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRaised((prev) => prev + Math.floor(Math.random() * 500 + 100))
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <>
       {/* ── HERO ────────────────────────────────────────────────────── */}
@@ -274,19 +265,28 @@ export default function HomePage() {
               </Link>
             </motion.div>
 
-            {/* Live Raised Ticker */}
+            {/* Fund Stats */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="mt-12 inline-flex items-center gap-3 bg-white/5 backdrop-blur border border-white/10 px-5 py-3 rounded-2xl"
+              className="mt-12 flex flex-col items-center gap-4"
             >
-              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-              <span className="text-slate-400 text-sm">Fund I raised so far:</span>
-              <span className="text-white font-bold tabular-nums text-sm">
-                €{raised.toLocaleString('de-DE')}
-              </span>
-              <span className="text-slate-500 text-xs">/ €5,000,000 target</span>
+              <div className="flex flex-wrap justify-center gap-4">
+                {[
+                  { label: 'Fund I Target Size', value: '€5,000,000' },
+                  { label: 'Minimum Investment', value: '€10,000' },
+                  { label: 'Expected First Close', value: 'Q2 2026' },
+                ].map(({ label, value }) => (
+                  <div key={label} className="bg-white/5 backdrop-blur border border-white/10 px-5 py-3 rounded-2xl text-center">
+                    <div className="text-white font-bold text-sm">{value}</div>
+                    <div className="text-slate-400 text-xs mt-0.5">{label}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-slate-500 text-xs max-w-sm text-center leading-relaxed">
+                ⚠️ Pre-launch phase. No capital raised yet. All terms subject to final fund documentation and regulatory approval.
+              </p>
             </motion.div>
           </div>
         </motion.div>

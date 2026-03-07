@@ -179,6 +179,7 @@ export default function AboutPage() {
                 >
                   <span className="text-white text-5xl font-black select-none">A</span>
                 </div>
+                <p className="text-xs italic text-slate-400 mt-1 text-center">Professional photo coming soon</p>
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 w-full space-y-3 text-sm">
                   {[
                     { k: 'Age', v: '25' },
@@ -303,6 +304,7 @@ export default function AboutPage() {
                 >
                   <span className="text-white text-4xl font-black select-none">A</span>
                 </div>
+                <p className="text-xs italic text-slate-400 mt-1 text-center">Professional photo coming soon</p>
               </div>
               <div className="flex-1 text-center sm:text-left">
                 <div className="mb-1">
