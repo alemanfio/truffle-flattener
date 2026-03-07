@@ -291,20 +291,7 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        >
-          <span className="text-slate-500 text-xs tracking-wider uppercase">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-px h-10 bg-gradient-to-b from-slate-500 to-transparent"
-          />
-        </motion.div>
+
       </section>
 
       {/* ── THE OPPORTUNITY ─────────────────────────────────────────── */}
