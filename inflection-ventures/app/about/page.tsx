@@ -69,39 +69,40 @@ const luxembourgReasons = [
 
 const journeyTimeline = [
   {
-    date: '2024',
-    title: 'Research Phase',
-    desc: 'Alessandro identifies the ELTIF 2.0 opportunity and develops the dual-sector thesis in longevity and space economy.',
+    date: '2024–2025',
+    title: 'Research & Validation',
+    desc: 'Alessandro identified the ELTIF 2.0 opportunity and developed the dual-sector investment thesis combining longevity science and space economy. Market research, competitive analysis, and fund structuring completed.',
+    current: false,
   },
   {
-    date: 'Q1 2025',
-    title: 'Foundation',
-    desc: 'Legal structuring begins. Fund economics modelled. First conversations with potential LPs.',
+    date: 'Q1 2026',
+    title: 'Market Validation',
+    desc: 'Conducting investor research study and building initial deal pipeline. Website launched, fund economics finalized, market validation survey in progress. Pre-launch preparation phase.',
+    current: true,
   },
   {
-    date: 'Q2 2025',
-    title: 'Documentation',
-    desc: 'Fund documentation finalised. CSSF application submitted. Website and platform development.',
+    date: 'Q2 2026',
+    title: 'Fund Formation',
+    desc: 'Legal entity formation (Luxembourg S.A./SICAV-RAIF), CSSF application submission. First close target: €500K–€1M from 50–100 early investors. Platform development and onboarding systems established.',
+    current: false,
   },
   {
-    date: 'Q3 2025',
-    title: 'Authorisation',
-    desc: 'ELTIF authorization received. First close target: €500K–€1M from 50–100 early investors.',
+    date: 'Q3 2026',
+    title: 'Deployment Begins',
+    desc: 'ELTIF authorization received from CSSF. First investments deployed (2–3 portfolio companies). Investor onboarding and KYC/AML processes operational. Quarterly reporting and transparency systems initiated.',
+    current: false,
   },
   {
-    date: 'Q4 2025',
-    title: 'Launch',
-    desc: 'Platform launch. First investments (1–2 companies). Community engagement begins.',
-  },
-  {
-    date: '2026',
-    title: 'Full Deployment',
-    desc: 'Full deployment. Target final close: €3–5M total. Portfolio: 15–20 companies.',
+    date: 'Q4 2026',
+    title: 'Portfolio Expansion',
+    desc: 'Rolling closes continue toward €3–5M total fund size. Portfolio expands to 6–10 companies across longevity and space sectors. Community engagement activities launched. Advisory board formation.',
+    current: false,
   },
   {
     date: '2027–2030',
     title: 'Portfolio Maturation',
-    desc: 'Portfolio maturation. First exits expected. Fund II planning begins.',
+    desc: 'Full deployment across 15–20 companies. Active portfolio support, follow-on investments, and value-add initiatives. First exits expected (Year 5–6). Fund II planning begins with €10–20M target size.',
+    current: false,
   },
 ]
 
@@ -430,11 +431,16 @@ export default function AboutPage() {
                   <FadeIn key={item.date} delay={i * 0.08}>
                     <div className={`relative flex items-start gap-6 ${isRight ? 'sm:flex-row' : 'sm:flex-row-reverse'}`}>
                       {/* Node */}
-                      <div className="absolute left-6 sm:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-blue-600 border-2 border-white shadow z-10 mt-1" />
+                      <div className={`absolute left-6 sm:left-1/2 -translate-x-1/2 rounded-full border-2 border-white shadow z-10 mt-1 ${item.current ? 'w-5 h-5 bg-emerald-500 animate-pulse' : 'w-4 h-4 bg-blue-600'}`} />
 
                       {/* Content */}
                       <div className={`ml-14 sm:ml-0 sm:w-[calc(50%-2rem)] ${isRight ? 'sm:pr-8 sm:text-right' : 'sm:pl-8'}`}>
-                        <span className="text-xs font-bold text-blue-600 uppercase tracking-wider">{item.date}</span>
+                        <div className={`flex items-center gap-2 ${isRight ? 'sm:justify-end' : ''}`}>
+                          <span className={`text-xs font-bold uppercase tracking-wider ${item.current ? 'text-emerald-600' : 'text-blue-600'}`}>{item.date}</span>
+                          {item.current && (
+                            <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full uppercase tracking-wider">Current</span>
+                          )}
+                        </div>
                         <h4 className="font-bold text-slate-900 mt-0.5 mb-1">{item.title}</h4>
                         <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
                       </div>

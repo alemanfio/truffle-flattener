@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Investment Focus', href: '/investment-focus' },
   { label: 'About', href: '/about' },
   { label: 'Community', href: '/community' },
+  { label: 'For Startups', href: '/apply' },
 ]
 
 export default function Navbar() {
