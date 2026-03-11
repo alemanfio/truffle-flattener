@@ -11,7 +11,6 @@ const navLinks = [
   { label: 'Investment Focus', href: '/investment-focus' },
   { label: 'About', href: '/about' },
   { label: 'Community', href: '/community' },
-  { label: 'For Startups', href: '/apply' },
 ]
 
 export default function Navbar() {
@@ -79,6 +78,12 @@ export default function Navbar() {
             {/* CTA */}
             <div className="hidden md:flex items-center gap-3">
               <Link
+                href="/apply"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all duration-200 shadow-lg hover:shadow-blue-600/25 hover:-translate-y-0.5"
+              >
+                For Startups
+              </Link>
+              <Link
                 href="/invest-now"
                 className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-all duration-200 shadow-lg hover:shadow-emerald-500/25 hover:-translate-y-0.5"
               >
@@ -124,7 +129,13 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-2 mt-2 border-t border-slate-100">
+              <div className="pt-2 mt-2 border-t border-slate-100 flex flex-col gap-2">
+                <Link
+                  href="/apply"
+                  className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-lg text-sm transition-colors"
+                >
+                  For Startups
+                </Link>
                 <Link
                   href="/invest-now"
                   className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-5 py-3 rounded-lg text-sm transition-colors"

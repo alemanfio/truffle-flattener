@@ -212,7 +212,7 @@ export default function ApplyPage() {
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://forms.gle/PLACEHOLDER"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSe49sNVFRjg45EMuZiZwr9IVfU__6rpHxQpSHIInAEOYw9Ezw/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary text-base px-8 py-4"
@@ -332,7 +332,7 @@ export default function ApplyPage() {
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
               <a
-                href="https://forms.gle/PLACEHOLDER"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSe49sNVFRjg45EMuZiZwr9IVfU__6rpHxQpSHIInAEOYw9Ezw/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary text-base px-8 py-4"
