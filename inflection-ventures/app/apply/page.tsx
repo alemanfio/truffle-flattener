@@ -182,12 +182,6 @@ const faqs = [
   },
 ]
 
-export const metadata = {
-  title: 'Raise Capital | Inflection Ventures',
-  description:
-    'Raising capital for your longevity or space economy startup? Apply for funding from Inflection Ventures - €150K-€400K investments in frontier technology.',
-}
-
 export default function ApplyPage() {
   return (
     <>
