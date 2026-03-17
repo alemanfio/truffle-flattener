@@ -5,11 +5,11 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Inflection Ventures | ELTIF 2.0 VC Fund — Longevity & Space Economy',
-    template: '%s | Inflection Ventures',
+    default: 'GenSeed Capital | ELTIF 2.0 VC Fund — Longevity & Space Economy',
+    template: '%s | GenSeed Capital',
   },
   description:
-    'Inflection Ventures is a Luxembourg-based ELTIF 2.0 venture capital fund democratising access to longevity and space economy investments. Minimum investment €10,000.',
+    'GenSeed Capital is a Luxembourg-based ELTIF 2.0 venture capital fund democratising access to longevity and space economy investments. Minimum investment €10,000.',
   keywords: [
     'ELTIF 2.0',
     'venture capital',
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_EU',
-    url: 'https://inflection.vc',
-    siteName: 'Inflection Ventures',
+    url: 'https://genseed.vc',
+    siteName: 'GenSeed Capital',
   },
 }
 

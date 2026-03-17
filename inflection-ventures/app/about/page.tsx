@@ -145,7 +145,7 @@ export default function AboutPage() {
         <div className="container-xl text-center w-full">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full mb-6">
-              About Inflection Ventures
+              About GenSeed Capital
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
               Democratizing frontier
@@ -199,7 +199,7 @@ export default function AboutPage() {
               {/* Story text */}
               <FadeIn delay={0.1} className="lg:col-span-2 space-y-5 text-slate-700 leading-relaxed">
                 <p>
-                  Inflection Ventures was founded by Alessandro, a 25-year-old finance professional
+                  GenSeed Capital was founded by Alessandro, a 25-year-old finance professional
                   who saw firsthand how the most exciting investment opportunities remain locked behind
                   institutional walls.
                 </p>
@@ -225,7 +225,7 @@ export default function AboutPage() {
                   retail-accessible venture capital with proper investor protection. We saw the opportunity and acted.
                 </p>
                 <p className="font-semibold text-slate-900">
-                  Inflection Ventures is our answer: professional VC quality, retail accessibility, and a community
+                  GenSeed Capital is our answer: professional VC quality, retail accessibility, and a community
                   of engaged investors who bring expertise, not just capital.
                 </p>
               </FadeIn>
@@ -259,7 +259,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Our Vision</h3>
                 <p className="text-slate-700 leading-relaxed text-sm">
                   By 2030, thousands of Europeans will have participated in financing the longevity and space
-                  revolutions through Inflection Ventures. Our portfolio companies will be extending healthy
+                  revolutions through GenSeed Capital. Our portfolio companies will be extending healthy
                   lifespan and building space infrastructure.
                 </p>
               </div>
@@ -328,7 +328,7 @@ export default function AboutPage() {
                     <FaLinkedin size={16} />
                   </a>
                   <a
-                    href="mailto:hello@inflection.vc"
+                    href="mailto:hello@genseed.vc"
                     className="w-9 h-9 rounded-lg bg-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-300 transition-colors"
                     aria-label="Email"
                   >
@@ -348,7 +348,7 @@ export default function AboutPage() {
             <span className="section-badge mb-4">Growth</span>
             <h2 className="section-title mb-4">We're Growing</h2>
             <p className="section-subtitle max-w-xl mx-auto">
-              As Inflection Ventures scales, we're building a team of domain experts and operators.
+              As GenSeed Capital scales, we're building a team of domain experts and operators.
             </p>
           </FadeIn>
 
@@ -375,10 +375,10 @@ export default function AboutPage() {
                 We're looking for mission-driven professionals who want to democratize frontier tech investing.
               </p>
               <a
-                href="mailto:careers@inflection.vc"
+                href="mailto:careers@genseed.vc"
                 className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-semibold text-sm transition-colors"
               >
-                careers@inflection.vc <HiArrowRight size={14} />
+                careers@genseed.vc <HiArrowRight size={14} />
               </a>
             </div>
           </FadeIn>
@@ -462,7 +462,7 @@ export default function AboutPage() {
               Join us in building the future
             </h2>
             <p className="text-slate-400 max-w-lg mx-auto mb-10 leading-relaxed">
-              Whether as an investor, advisor, or team member — there's a place for you at Inflection Ventures.
+              Whether as an investor, advisor, or team member — there's a place for you at GenSeed Capital.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/invest-now" className="btn-primary text-base px-8 py-4">

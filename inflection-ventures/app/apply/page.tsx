@@ -208,7 +208,7 @@ export default function ApplyPage() {
               If you're building breakthrough technology in longevity science or space economy, we want to hear from you.
             </p>
             <p className="text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Inflection Ventures invests €150K–€400K in pre-seed to Series A companies advancing human lifespan and expanding humanity's reach. We're currently building our pipeline for Q2 2026 first close.
+              GenSeed Capital invests €150K–€400K in pre-seed to Series A companies advancing human lifespan and expanding humanity's reach. We're currently building our pipeline for Q2 2026 first close.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -348,8 +348,8 @@ export default function ApplyPage() {
             </p>
             <p className="text-slate-500 text-sm mt-2">
               Questions? Email{' '}
-              <a href="mailto:hello@inflection.vc" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                hello@inflection.vc
+              <a href="mailto:hello@genseed.vc" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                hello@genseed.vc
               </a>
             </p>
           </FadeIn>

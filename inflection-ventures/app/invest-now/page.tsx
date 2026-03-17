@@ -72,7 +72,7 @@ const faqs = [
   { q: 'How long is my capital locked up?', a: 'Fund I has a target duration of 7–10 years. ELTIF 2.0 allows for limited liquidity windows, and we maintain a Secondary Market program where investors can seek to transfer positions to other eligible investors, though this cannot be guaranteed.' },
   { q: 'Am I eligible to invest if I live outside the EU?', a: 'Fund I is primarily structured for EU investors. Non-EU investors may be able to participate through eligible feeder structures. Contact us to discuss your specific situation.' },
   { q: 'How are investments selected?', a: 'Our Investment Committee selects investments after a thorough due diligence process. Community Working Groups contribute sector expertise and investment leads, but the final decision rests with the professional investment team.' },
-  { q: 'What fees does Inflection Ventures charge?', a: 'Fund I charges a 2.0% annual management fee on committed capital and a 20% carried interest on profits above the hurdle rate (6% p.a.). There are no additional hidden fees.' },
+  { q: 'What fees does GenSeed Capital charge?', a: 'Fund I charges a 2.0% annual management fee on committed capital and a 20% carried interest on profits above the hurdle rate (6% p.a.). There are no additional hidden fees.' },
   { q: 'What is the hurdle rate?', a: 'We have a preferred return (hurdle rate) of 6% p.a. This means investors receive the first 6% of returns before our carried interest kicks in. After the hurdle, we apply a 20% carry.' },
   { q: 'When will I see returns?', a: 'Venture capital is illiquid and long-term. You should not expect distributions before year 5-6 at the earliest. Target exits happen between years 7-10. We will distribute proceeds to investors as exits occur.' },
   { q: 'What is ELTIF 2.0 and why does it matter?', a: 'The European Long-Term Investment Fund 2.0 regulation (effective January 2024) allows EU funds to accept retail investors from €10,000 with full regulatory protection. This is the framework that makes our low minimum possible.' },
@@ -282,12 +282,12 @@ export default function InvestNowPage() {
               <div className="bg-white border-2 border-emerald-200 rounded-2xl p-6 text-center">
                 <p className="text-slate-700 font-semibold mb-4">Ready to start? Begin your qualification below.</p>
                 <a
-                  href="mailto:invest@inflection.vc?subject=Fund%20I%20Investment%20Inquiry"
+                  href="mailto:invest@genseed.vc?subject=Fund%20I%20Investment%20Inquiry"
                   className="btn-primary text-base px-8 py-4 inline-flex"
                 >
                   Start Investment Process <HiArrowRight />
                 </a>
-                <p className="text-xs text-slate-400 mt-3">Or email us at invest@inflection.vc</p>
+                <p className="text-xs text-slate-400 mt-3">Or email us at invest@genseed.vc</p>
               </div>
             </FadeIn>
           </div>
@@ -417,7 +417,7 @@ export default function InvestNowPage() {
                 <h2 className="text-2xl font-bold text-slate-900">Important Risk Disclosure</h2>
               </div>
               <div className="prose prose-sm text-slate-700 max-w-none space-y-3">
-                <p><strong>Capital at risk.</strong> Investment in Inflection Ventures Fund I carries significant risk, including the risk of total loss of capital. Venture capital investments are inherently illiquid and speculative.</p>
+                <p><strong>Capital at risk.</strong> Investment in GenSeed Capital Fund I carries significant risk, including the risk of total loss of capital. Venture capital investments are inherently illiquid and speculative.</p>
                 <p><strong>Illiquidity risk.</strong> Your investment is locked for the fund duration of 7–10 years. You may not be able to access your capital before this period ends.</p>
                 <p><strong>Performance risk.</strong> Past performance of venture capital funds is not indicative of future results. Stated target returns (3–5×) are projections only and not guaranteed.</p>
                 <p><strong>Concentration risk.</strong> While we target 12–18 portfolio companies, early-stage investments carry high failure rates. Many portfolio companies may return zero.</p>
@@ -483,7 +483,7 @@ export default function InvestNowPage() {
                       if (res.ok) {
                         setWaitlistSubmitted(true)
                       } else {
-                        setWaitlistError('Something went wrong. Please email us at invest@inflection.vc')
+                        setWaitlistError('Something went wrong. Please email us at invest@genseed.vc')
                       }
                     } catch {
                       setWaitlistError('Network error. Please try again or email us directly.')
@@ -541,7 +541,7 @@ export default function InvestNowPage() {
               longevity and space.
             </p>
             <a
-              href="mailto:invest@inflection.vc?subject=Fund%20I%20Investment%20Inquiry"
+              href="mailto:invest@genseed.vc?subject=Fund%20I%20Investment%20Inquiry"
               className="btn-primary text-base px-8 py-4 inline-flex"
             >
               Start Your Investment Today <HiArrowRight />
@@ -558,7 +558,7 @@ export default function InvestNowPage() {
               <div className="flex flex-col items-center gap-2">
                 <HiMail className="text-blue-700" size={24} />
                 <p className="font-semibold text-slate-900 text-sm">Email</p>
-                <a href="mailto:invest@inflection.vc" className="text-blue-700 text-sm hover:underline">invest@inflection.vc</a>
+                <a href="mailto:invest@genseed.vc" className="text-blue-700 text-sm hover:underline">invest@genseed.vc</a>
               </div>
             </FadeIn>
             <FadeIn delay={0.1}>

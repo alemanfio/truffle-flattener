@@ -22,9 +22,9 @@ const footerLinks = {
     { label: 'ELTIF Prospectus', href: '#' },
   ],
   'Contact': [
-    { label: 'hello@inflection.vc', href: 'mailto:hello@inflection.vc' },
+    { label: 'hello@genseed.vc', href: 'mailto:hello@genseed.vc' },
     { label: 'Luxembourg, EU', href: '#' },
-    { label: 'Media & Press', href: 'mailto:press@inflection.vc' },
+    { label: 'Media & Press', href: 'mailto:press@genseed.vc' },
   ],
 }
 
@@ -169,9 +169,9 @@ export default function Footer() {
       <div className="border-t border-slate-800">
         <div className="container-xl py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <p>© {new Date().getFullYear()} Inflection Ventures S.A. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} GenSeed Capital S.A. All rights reserved.</p>
             <p className="text-center md:text-right leading-relaxed max-w-2xl">
-              Inflection Ventures is a regulated ELTIF 2.0 fund registered in Luxembourg.
+              GenSeed Capital is a regulated ELTIF 2.0 fund registered in Luxembourg.
               Past performance is not indicative of future results. Capital at risk.
               Not available to US persons. EU investors only.
             </p>

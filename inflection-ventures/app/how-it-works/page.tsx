@@ -41,7 +41,7 @@ const steps = [
     number: '01',
     title: 'You Invest',
     color: 'emerald',
-    summary: 'Commit from €10,000 and become a limited partner in Inflection Ventures Fund I.',
+    summary: 'Commit from €10,000 and become a limited partner in GenSeed Capital Fund I.',
     detail:
       'Complete our online qualification process, sign the subscription agreement electronically, and wire your commitment. ELTIF 2.0 regulations allow EU retail investors to participate with a minimum of €10,000. Professional investors have no minimum. Your commitment is legally binding but capital is only called when investments are ready to close.',
   },

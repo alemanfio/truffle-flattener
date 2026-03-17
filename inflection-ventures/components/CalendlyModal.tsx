@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { HiX } from 'react-icons/hi'
 
 // Replace with your actual Calendly URL once you have one.
-// e.g. 'https://calendly.com/inflection-ventures/intro-call'
-const CALENDLY_URL = 'https://calendly.com/inflection-ventures/intro-call'
+// e.g. 'https://calendly.com/genseed-capital/intro-call'
+const CALENDLY_URL = 'https://calendly.com/genseed-capital/intro-call'
 
 interface Props {
   open: boolean
@@ -71,7 +71,7 @@ export default function CalendlyModal({ open, onClose }: Props) {
               src={`${CALENDLY_URL}?embed_type=Inline&hide_gdpr_banner=1&primary_color=10b981`}
               className="w-full"
               style={{ height: 'calc(100% - 65px)', border: 'none' }}
-              title="Schedule a call with Inflection Ventures"
+              title="Schedule a call with GenSeed Capital"
             />
           </motion.div>
         </motion.div>

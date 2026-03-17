@@ -42,7 +42,7 @@ const benefits = [
     icon: <HiChat size={26} />,
     color: 'purple',
     title: 'Private Community Forum',
-    desc: 'Slack community with topic channels, deal discussion threads, and direct access to the Inflection Ventures team.',
+    desc: 'Slack community with topic channels, deal discussion threads, and direct access to the GenSeed Capital team.',
   },
   {
     icon: <HiBriefcase size={26} />,
@@ -88,7 +88,7 @@ const events = [
     date: 'Apr 22, 2026',
     type: 'Conference',
     title: 'New Space Economy Forum — Luxembourg',
-    desc: 'Join us at the annual New Space Economy Forum. Inflection Ventures investors receive priority invitations.',
+    desc: 'Join us at the annual New Space Economy Forum. GenSeed Capital investors receive priority invitations.',
     tag: 'Space',
     tagColor: 'purple',
   },
@@ -120,7 +120,7 @@ const testimonials = [
     color: 'blue',
   },
   {
-    quote: "ELTIF 2.0 felt like an abstract regulatory concept until I invested. The transparency of how Inflection Ventures operates — the quarterly reports, the governance minutes — gives me genuine confidence in where my money goes.",
+    quote: "ELTIF 2.0 felt like an abstract regulatory concept until I invested. The transparency of how GenSeed Capital operates — the quarterly reports, the governance minutes — gives me genuine confidence in where my money goes.",
     name: 'S. Bergmann',
     role: 'Tech Entrepreneur',
     location: 'Germany',
@@ -185,7 +185,7 @@ export default function CommunityPage() {
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 block">Tier 1 · All Investors</span>
                     <h3 className="text-2xl font-black text-slate-900 mb-2">Community Members</h3>
                     <p className="text-slate-600 max-w-md">
-                      Every LP in Inflection Ventures Fund I is automatically a community member.
+                      Every LP in GenSeed Capital Fund I is automatically a community member.
                       Access to the private forum, quarterly reports, events, and educational content.
                     </p>
                   </div>
@@ -264,7 +264,7 @@ export default function CommunityPage() {
             <span className="section-badge mb-4">Member Benefits</span>
             <h2 className="section-title mb-4">More than a fund — a community</h2>
             <p className="section-subtitle max-w-xl mx-auto">
-              Membership in Inflection Ventures comes with access to a world-class network
+              Membership in GenSeed Capital comes with access to a world-class network
               and educational resources.
             </p>
           </FadeIn>
@@ -406,7 +406,7 @@ export default function CommunityPage() {
               <Link href="/invest-now" className="btn-primary text-base px-8 py-4">
                 Invest & Join Now <HiArrowRight />
               </Link>
-              <a href="mailto:hello@inflection.vc" className="btn-secondary text-base px-8 py-4">
+              <a href="mailto:hello@genseed.vc" className="btn-secondary text-base px-8 py-4">
                 Contact the Team
               </a>
             </div>

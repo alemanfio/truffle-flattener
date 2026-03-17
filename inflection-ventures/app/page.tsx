@@ -244,7 +244,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.25 }}
               className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl mx-auto"
             >
-              Inflection Ventures is a Luxembourg ELTIF 2.0 VC fund giving retail investors
+              GenSeed Capital is a Luxembourg ELTIF 2.0 VC fund giving retail investors
               access to venture-stage longevity and space economy companies — from €10,000.
             </motion.p>
 
@@ -426,7 +426,7 @@ export default function HomePage() {
           <FadeIn className="text-center mb-16">
             <span className="section-badge mb-4">The Solution</span>
             <h2 className="section-title mb-4">
-              How Inflection Ventures works
+              How GenSeed Capital works
             </h2>
             <p className="section-subtitle max-w-2xl mx-auto">
               We combine institutional-grade deal sourcing with a regulated retail-accessible
@@ -557,7 +557,7 @@ export default function HomePage() {
             <span className="section-badge mb-4">Who We Serve</span>
             <h2 className="section-title mb-4">Built for investors who think differently</h2>
             <p className="section-subtitle max-w-2xl mx-auto">
-              Inflection Ventures is designed for a new kind of investor — one who combines
+              GenSeed Capital is designed for a new kind of investor — one who combines
               financial ambition with belief in science and humanity's potential.
             </p>
           </FadeIn>

@@ -1,6 +1,6 @@
-# Inflection Ventures — Website
+# GenSeed Capital — Website
 
-Modern, professional website for Inflection Ventures — a Luxembourg-based ELTIF 2.0 venture capital fund focused on longevity science and space economy investments.
+Modern, professional website for GenSeed Capital — a Luxembourg-based ELTIF 2.0 venture capital fund focused on longevity science and space economy investments.
 
 ## Tech Stack
 
@@ -23,7 +23,7 @@ Modern, professional website for Inflection Ventures — a Luxembourg-based ELTI
 ## Quick Start
 
 ```bash
-cd inflection-ventures
+cd genseed-capital
 npm install
 npm run dev
 ```
@@ -62,4 +62,4 @@ Forms use simple mailto links for now. To connect to Formspree:
 
 ## Contact
 
-invest@inflection.vc
+invest@genseed.vc
