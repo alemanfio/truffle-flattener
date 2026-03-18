@@ -42,14 +42,14 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-emerald-500 flex items-center justify-center shadow-md">
-                <span className="text-white font-black text-sm">IV</span>
+                <span className="text-white font-black text-sm">GS</span>
               </div>
               <div className="flex flex-col leading-none">
                 <span className={`font-bold text-sm transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>
-                  Inflection
+                  GenSeed
                 </span>
                 <span className={`font-semibold text-xs transition-colors ${scrolled ? 'text-emerald-600' : 'text-emerald-400'}`}>
-                  Ventures
+                  Capital
                 </span>
               </div>
             </Link>

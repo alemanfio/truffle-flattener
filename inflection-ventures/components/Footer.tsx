@@ -69,11 +69,11 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-emerald-500 flex items-center justify-center">
-                <span className="text-white font-black text-sm">IV</span>
+                <span className="text-white font-black text-sm">GS</span>
               </div>
               <div className="flex flex-col leading-none">
-                <span className="text-white font-bold text-sm">Inflection</span>
-                <span className="text-emerald-400 font-semibold text-xs">Ventures</span>
+                <span className="text-white font-bold text-sm">GenSeed</span>
+                <span className="text-emerald-400 font-semibold text-xs">Capital</span>
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">

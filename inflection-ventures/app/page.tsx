@@ -244,8 +244,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.25 }}
               className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-10 max-w-2xl mx-auto"
             >
-              GenSeed Capital is a Luxembourg ELTIF 2.0 VC fund giving retail investors
-              access to venture-stage longevity and space economy companies — from €10,000.
+              GenSeed Capital represents a new generation of venture capital. We're seeding the genetic future—from longevity science to space economy—while opening frontier investing to a new generation of retail investors with €10K minimums.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -638,7 +637,7 @@ export default function HomePage() {
               Fund I is Open
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-6 leading-tight">
-              The inflection point is now.
+              The next generation starts now.
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
                 Will you be part of it?
