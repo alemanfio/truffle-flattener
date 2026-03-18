@@ -1,72 +1,127 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 430" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 430" fill="none">
   <defs>
-    <linearGradient id="gGrad" x1="0" y1="0" x2="0.2" y2="1">
-      <stop offset="0%" stop-color="#0a4a62"/>
-      <stop offset="100%" stop-color="#0c6e90"/>
+    <linearGradient id="gGrad2" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#0b4f6c"/>
+      <stop offset="100%" stop-color="#0a7a9a"/>
     </linearGradient>
-    <linearGradient id="sGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0891b2"/>
-      <stop offset="100%" stop-color="#22d3ee"/>
+    <linearGradient id="sGrad2" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#0a8fb5"/>
+      <stop offset="50%" stop-color="#06b6c8"/>
+      <stop offset="100%" stop-color="#00d4d4"/>
     </linearGradient>
-    <linearGradient id="orbGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#0a4a62"/>
-      <stop offset="50%" stop-color="#0891b2"/>
-      <stop offset="100%" stop-color="#22d3ee"/>
+    <linearGradient id="orbGrad2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0b4f6c"/>
+      <stop offset="40%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#00d4d4"/>
     </linearGradient>
-    <linearGradient id="dnaGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.9"/>
+    <linearGradient id="dnaGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.95"/>
     </linearGradient>
   </defs>
 
-  <!-- G letter -->
-  <text x="8" y="278" font-family="'Arial Black', 'Arial Bold', Impact, sans-serif" font-weight="900" font-size="248" fill="url(#gGrad)">G</text>
+  <!-- G LETTER -->
+  <path d="
+    M 195,42
+    C 155,42 118,57 92,83
+    C 65,110 50,146 50,186
+    C 50,226 65,262 92,288
+    C 118,314 155,329 195,329
+    C 232,329 265,317 288,296
+    C 295,289 300,280 300,270
+    L 300,202
+    C 300,194 294,188 286,188
+    L 218,188
+    C 210,188 204,194 204,202
+    C 204,210 210,216 218,216
+    L 272,216
+    L 272,264
+    C 254,280 226,301 195,301
+    C 163,301 135,289 114,268
+    C 94,247 82,218 82,186
+    C 82,154 94,125 114,104
+    C 135,83 163,71 195,71
+    C 224,71 249,82 268,101
+    C 274,107 283,107 289,101
+    C 295,95 295,86 289,80
+    C 264,55 231,42 195,42 Z
+  " fill="url(#gGrad2)"/>
 
-  <!-- S letter -->
-  <text x="206" y="278" font-family="'Arial Black', 'Arial Bold', Impact, sans-serif" font-weight="900" font-size="248" fill="url(#sGrad)">S</text>
+  <!-- S LETTER -->
+  <path d="
+    M 370,42
+    C 340,42 314,51 295,66
+    C 276,82 265,104 265,130
+    C 265,154 274,176 290,192
+    C 306,208 328,217 352,224
+    L 376,231
+    C 396,237 410,244 420,253
+    C 430,262 435,274 435,288
+    C 435,303 428,316 416,325
+    C 404,334 388,339 370,339
+    C 350,339 332,332 319,320
+    C 313,314 304,314 298,320
+    C 292,326 292,335 298,341
+    C 315,357 341,367 370,367
+    C 398,367 422,358 440,342
+    C 458,326 468,303 468,279
+    C 468,254 458,232 440,216
+    C 422,200 398,190 370,182
+    L 346,175
+    C 328,169 316,162 308,154
+    C 300,146 296,135 296,122
+    C 296,108 303,95 315,86
+    C 327,77 343,71 362,71
+    C 381,71 397,77 408,87
+    C 414,93 423,93 429,87
+    C 435,81 435,72 429,66
+    C 413,51 393,42 370,42 Z
+  " fill="url(#sGrad2)"/>
 
-  <!-- Orbital ellipse ring -->
-  <ellipse cx="248" cy="168" rx="226" ry="68" stroke="url(#orbGrad)" stroke-width="7" fill="none" transform="rotate(-13 248 168)"/>
+  <!-- ORBITAL RING -->
+  <ellipse cx="258" cy="187" rx="232" ry="72"
+           stroke="url(#orbGrad2)" stroke-width="8" fill="none"
+           transform="rotate(-14 258 187)"/>
 
-  <!-- Spacecraft at top-right of orbital ring -->
-  <g transform="translate(443 80) rotate(-25)">
-    <ellipse cx="0" cy="0" rx="13" ry="6" fill="#0a4a62"/>
-    <path d="M9,-3 L16,0 L9,3 Z" fill="#0891b2"/>
-    <circle cx="1" cy="-1" r="3" fill="#22d3ee" opacity="0.85"/>
+  <!-- Spacecraft -->
+  <g transform="translate(452,82) rotate(-28)">
+    <ellipse cx="0" cy="0" rx="14" ry="6.5" fill="#0b4f6c"/>
+    <path d="M10,-4 L18,0 L10,4 Z" fill="#0891b2"/>
+    <circle cx="1" cy="-1" r="3.5" fill="#22d3ee" opacity="0.9"/>
   </g>
 
-  <!-- DNA helix inside G opening (right interior of G, approx x=105-155, y=118-272) -->
-  <!-- Left strand -->
-  <path d="M 115,120 C 104,142 150,162 140,184 C 130,206 104,226 115,248 C 126,268 150,272 140,280"
-        stroke="url(#dnaGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <!-- Right strand -->
-  <path d="M 148,120 C 159,142 113,162 123,184 C 133,206 159,226 148,248 C 137,268 113,272 123,280"
-        stroke="url(#dnaGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <!-- Crossbars -->
-  <line x1="115" y1="120" x2="148" y2="120" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
-  <line x1="125" y1="152" x2="138" y2="152" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
-  <line x1="115" y1="184" x2="148" y2="184" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
-  <line x1="115" y1="216" x2="148" y2="216" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
-  <line x1="125" y1="248" x2="138" y2="248" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
-  <line x1="115" y1="272" x2="148" y2="272" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <!-- DNA HELIX -->
+  <path d="M 118,104 C 106,128 155,150 144,174 C 133,198 106,220 118,244 C 130,266 155,272 144,282"
+        stroke="url(#dnaGrad2)" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <path d="M 153,104 C 165,128 116,150 127,174 C 138,198 165,220 153,244 C 141,266 116,272 127,282"
+        stroke="url(#dnaGrad2)" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+  <line x1="118" y1="104" x2="153" y2="104" stroke="#22d3ee" stroke-width="2.8" stroke-linecap="round" opacity="0.8"/>
+  <line x1="129" y1="139" x2="142" y2="139" stroke="#22d3ee" stroke-width="2.8" stroke-linecap="round" opacity="0.8"/>
+  <line x1="118" y1="174" x2="153" y2="174" stroke="#22d3ee" stroke-width="2.8" stroke-linecap="round" opacity="0.8"/>
+  <line x1="118" y1="209" x2="153" y2="209" stroke="#22d3ee" stroke-width="2.8" stroke-linecap="round" opacity="0.8"/>
+  <line x1="129" y1="244" x2="142" y2="244" stroke="#22d3ee" stroke-width="2.8" stroke-linecap="round" opacity="0.8"/>
+  <line x1="118" y1="270" x2="153" y2="270" stroke="#22d3ee" stroke-width="2.8" stroke-linecap="round" opacity="0.8"/>
 
-  <!-- Moon crescent inside upper S (approx x=310-350, y=118-160) -->
-  <circle cx="328" cy="136" r="22" fill="#0a4a62" opacity="0.9"/>
-  <circle cx="336" cy="133" r="17" fill="#0891b2"/>
+  <!-- CRESCENT MOON in S -->
+  <circle cx="348" cy="132" r="24" fill="#0a4a62" opacity="0.95"/>
+  <circle cx="357" cy="128" r="18" fill="#0891b2"/>
 
-  <!-- Leaf / seedling at lower S (approx x=305-375, y=248-278) -->
-  <path d="M 338,268 Q 358,246 378,254 Q 364,274 338,268 Z" fill="#22d3ee" opacity="0.9"/>
-  <line x1="338" y1="268" x2="362" y2="249" stroke="#0a4a62" stroke-width="1.8" stroke-linecap="round"/>
-  <!-- Sprout dot -->
-  <circle cx="297" cy="262" r="4.5" fill="#0891b2" opacity="0.8"/>
+  <!-- LEAF at bottom of S -->
+  <path d="M 348,277 Q 326,254 334,234 Q 352,248 348,277 Z" fill="#00d4d4" opacity="0.95"/>
+  <path d="M 348,277 Q 370,254 362,234 Q 344,248 348,277 Z" fill="#00c4c0" opacity="0.85"/>
+  <line x1="348" y1="300" x2="348" y2="267" stroke="#0a7a9a" stroke-width="2.5" stroke-linecap="round"/>
 
-  <!-- Orbital accent dots -->
-  <circle cx="445" cy="97" r="5" fill="#0a4a62"/>
-  <circle cx="66" cy="246" r="4" fill="#22d3ee" opacity="0.7"/>
+  <!-- Accent dots -->
+  <circle cx="460" cy="102" r="5.5" fill="#0b4f6c"/>
+  <circle cx="300" cy="274" r="5" fill="#00d4d4" opacity="0.8"/>
 
   <!-- Text: GENSEED CAPITAL -->
-  <text x="260" y="362" text-anchor="middle" font-family="'Arial', Helvetica, sans-serif" font-weight="700" font-size="33" fill="#0a4a62" letter-spacing="5">GENSEED CAPITAL</text>
+  <text x="259" y="372" text-anchor="middle"
+        font-family="'Arial', 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="800" font-size="34" fill="#0b4f6c" letter-spacing="5">GENSEED CAPITAL</text>
 
   <!-- Text: VENTURE CAPITAL FUND -->
-  <text x="260" y="398" text-anchor="middle" font-family="'Arial', Helvetica, sans-serif" font-weight="500" font-size="18" fill="#0891b2" letter-spacing="3">VENTURE CAPITAL FUND</text>
+  <text x="259" y="408" text-anchor="middle"
+        font-family="'Arial', 'Helvetica Neue', Helvetica, sans-serif"
+        font-weight="600" font-size="17" fill="#0891b2" letter-spacing="3.5">VENTURE CAPITAL FUND</text>
 </svg>
