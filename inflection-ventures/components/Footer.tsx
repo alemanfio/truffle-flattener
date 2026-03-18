@@ -70,10 +70,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
               <Image
-                src="/logo-mark.svg"
+                src="/Logo.png"
                 alt="GenSeed Capital"
                 width={56}
-                height={36}
+                height={56}
                 className="h-9 w-auto"
               />
               <div className="flex flex-col leading-none">

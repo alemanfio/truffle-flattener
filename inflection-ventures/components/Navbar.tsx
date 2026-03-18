@@ -43,10 +43,10 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center group">
               <Image
-                src="/logo-mark.svg"
+                src="/Logo.png"
                 alt="GenSeed Capital"
                 width={110}
-                height={72}
+                height={110}
                 priority
                 className="h-11 w-auto"
               />
