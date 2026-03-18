@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" fill="none">
+  <defs>
+    <linearGradient id="gGrad" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0%" stop-color="#0a4a62"/>
+      <stop offset="100%" stop-color="#0c6e90"/>
+    </linearGradient>
+    <linearGradient id="sGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="orbGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a4a62"/>
+      <stop offset="50%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="dnaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- G letter -->
+  <text x="8" y="266" font-family="'Arial Black', 'Arial Bold', Impact, sans-serif" font-weight="900" font-size="238" fill="url(#gGrad)">G</text>
+
+  <!-- S letter -->
+  <text x="196" y="266" font-family="'Arial Black', 'Arial Bold', Impact, sans-serif" font-weight="900" font-size="238" fill="url(#sGrad)">S</text>
+
+  <!-- Orbital ellipse ring -->
+  <ellipse cx="238" cy="158" rx="218" ry="66" stroke="url(#orbGrad)" stroke-width="7" fill="none" transform="rotate(-13 238 158)"/>
+
+  <!-- Spacecraft -->
+  <g transform="translate(427 72) rotate(-25)">
+    <ellipse cx="0" cy="0" rx="13" ry="6" fill="#0a4a62"/>
+    <path d="M9,-3 L16,0 L9,3 Z" fill="#0891b2"/>
+    <circle cx="1" cy="-1" r="3" fill="#22d3ee" opacity="0.85"/>
+  </g>
+
+  <!-- DNA helix inside G -->
+  <path d="M 108,112 C 97,134 143,154 133,176 C 123,198 97,218 108,240 C 119,260 143,264 133,272"
+        stroke="url(#dnaGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M 141,112 C 152,134 106,154 116,176 C 126,198 152,218 141,240 C 130,260 106,264 116,272"
+        stroke="url(#dnaGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <line x1="108" y1="112" x2="141" y2="112" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="118" y1="144" x2="131" y2="144" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="108" y1="176" x2="141" y2="176" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="108" y1="208" x2="141" y2="208" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="118" y1="240" x2="131" y2="240" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="108" y1="264" x2="141" y2="264" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+
+  <!-- Moon crescent inside S -->
+  <circle cx="316" cy="128" r="21" fill="#0a4a62" opacity="0.9"/>
+  <circle cx="324" cy="125" r="16" fill="#0891b2"/>
+
+  <!-- Leaf at bottom S -->
+  <path d="M 326,258 Q 346,237 366,244 Q 352,264 326,258 Z" fill="#22d3ee" opacity="0.9"/>
+  <line x1="326" y1="258" x2="350" y2="239" stroke="#0a4a62" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="286" cy="252" r="4.5" fill="#0891b2" opacity="0.8"/>
+
+  <!-- Orbital accent dots -->
+  <circle cx="429" cy="89" r="5" fill="#0a4a62"/>
+  <circle cx="57" cy="235" r="4" fill="#22d3ee" opacity="0.7"/>
+</svg>

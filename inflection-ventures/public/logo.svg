@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 430" fill="none">
+  <defs>
+    <linearGradient id="gGrad" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0%" stop-color="#0a4a62"/>
+      <stop offset="100%" stop-color="#0c6e90"/>
+    </linearGradient>
+    <linearGradient id="sGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="orbGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0a4a62"/>
+      <stop offset="50%" stop-color="#0891b2"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="dnaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- G letter -->
+  <text x="8" y="278" font-family="'Arial Black', 'Arial Bold', Impact, sans-serif" font-weight="900" font-size="248" fill="url(#gGrad)">G</text>
+
+  <!-- S letter -->
+  <text x="206" y="278" font-family="'Arial Black', 'Arial Bold', Impact, sans-serif" font-weight="900" font-size="248" fill="url(#sGrad)">S</text>
+
+  <!-- Orbital ellipse ring -->
+  <ellipse cx="248" cy="168" rx="226" ry="68" stroke="url(#orbGrad)" stroke-width="7" fill="none" transform="rotate(-13 248 168)"/>
+
+  <!-- Spacecraft at top-right of orbital ring -->
+  <g transform="translate(443 80) rotate(-25)">
+    <ellipse cx="0" cy="0" rx="13" ry="6" fill="#0a4a62"/>
+    <path d="M9,-3 L16,0 L9,3 Z" fill="#0891b2"/>
+    <circle cx="1" cy="-1" r="3" fill="#22d3ee" opacity="0.85"/>
+  </g>
+
+  <!-- DNA helix inside G opening (right interior of G, approx x=105-155, y=118-272) -->
+  <!-- Left strand -->
+  <path d="M 115,120 C 104,142 150,162 140,184 C 130,206 104,226 115,248 C 126,268 150,272 140,280"
+        stroke="url(#dnaGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Right strand -->
+  <path d="M 148,120 C 159,142 113,162 123,184 C 133,206 159,226 148,248 C 137,268 113,272 123,280"
+        stroke="url(#dnaGrad)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Crossbars -->
+  <line x1="115" y1="120" x2="148" y2="120" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="125" y1="152" x2="138" y2="152" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="115" y1="184" x2="148" y2="184" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="115" y1="216" x2="148" y2="216" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="125" y1="248" x2="138" y2="248" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <line x1="115" y1="272" x2="148" y2="272" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+
+  <!-- Moon crescent inside upper S (approx x=310-350, y=118-160) -->
+  <circle cx="328" cy="136" r="22" fill="#0a4a62" opacity="0.9"/>
+  <circle cx="336" cy="133" r="17" fill="#0891b2"/>
+
+  <!-- Leaf / seedling at lower S (approx x=305-375, y=248-278) -->
+  <path d="M 338,268 Q 358,246 378,254 Q 364,274 338,268 Z" fill="#22d3ee" opacity="0.9"/>
+  <line x1="338" y1="268" x2="362" y2="249" stroke="#0a4a62" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Sprout dot -->
+  <circle cx="297" cy="262" r="4.5" fill="#0891b2" opacity="0.8"/>
+
+  <!-- Orbital accent dots -->
+  <circle cx="445" cy="97" r="5" fill="#0a4a62"/>
+  <circle cx="66" cy="246" r="4" fill="#22d3ee" opacity="0.7"/>
+
+  <!-- Text: GENSEED CAPITAL -->
+  <text x="260" y="362" text-anchor="middle" font-family="'Arial', Helvetica, sans-serif" font-weight="700" font-size="33" fill="#0a4a62" letter-spacing="5">GENSEED CAPITAL</text>
+
+  <!-- Text: VENTURE CAPITAL FUND -->
+  <text x="260" y="398" text-anchor="middle" font-family="'Arial', Helvetica, sans-serif" font-weight="500" font-size="18" fill="#0891b2" letter-spacing="3">VENTURE CAPITAL FUND</text>
+</svg>

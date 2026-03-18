@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { HiMenu, HiX } from 'react-icons/hi'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -40,18 +41,15 @@ export default function Navbar() {
         <div className="container-xl">
           <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-emerald-500 flex items-center justify-center shadow-md">
-                <span className="text-white font-black text-sm">GS</span>
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className={`font-bold text-sm transition-colors ${scrolled ? 'text-slate-900' : 'text-white'}`}>
-                  GenSeed
-                </span>
-                <span className={`font-semibold text-xs transition-colors ${scrolled ? 'text-emerald-600' : 'text-emerald-400'}`}>
-                  Capital
-                </span>
-              </div>
+            <Link href="/" className="flex items-center group">
+              <Image
+                src="/logo-mark.svg"
+                alt="GenSeed Capital"
+                width={110}
+                height={72}
+                priority
+                className="h-11 w-auto"
+              />
             </Link>
 
             {/* Desktop Nav */}

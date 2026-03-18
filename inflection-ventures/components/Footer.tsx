@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { FaLinkedin, FaXTwitter, FaTelegram } from 'react-icons/fa6'
 import { HiArrowRight } from 'react-icons/hi'
@@ -67,13 +68,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-emerald-500 flex items-center justify-center">
-                <span className="text-white font-black text-sm">GS</span>
-              </div>
+            <Link href="/" className="flex items-center gap-3 mb-4">
+              <Image
+                src="/logo-mark.svg"
+                alt="GenSeed Capital"
+                width={56}
+                height={36}
+                className="h-9 w-auto"
+              />
               <div className="flex flex-col leading-none">
                 <span className="text-white font-bold text-sm">GenSeed</span>
-                <span className="text-emerald-400 font-semibold text-xs">Capital</span>
+                <span className="text-cyan-400 font-semibold text-xs">Capital</span>
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
