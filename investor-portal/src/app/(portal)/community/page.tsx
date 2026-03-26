@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
-import { MOCK_DISCUSSIONS } from "@/lib/mock-data";
+import { MOCK_DISCUSSIONS, MOCK_COMPANIES } from "@/lib/mock-data";
 import { Discussion } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,9 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar } from "@/components/ui/avatar";
-import { ThumbsUp, MessageSquare, Plus } from "lucide-react";
+import { EmptyState } from "@/components/empty-state";
+import { ThumbsUp, MessageSquare, Plus, MessagesSquare } from "lucide-react";
 
 type Category = "all" | "company" | "longevity" | "space" | "general";
+type SortOption = "recent" | "upvotes" | "comments";
 
 const CATEGORY_TABS: { label: string; value: Category }[] = [
   { label: "All", value: "all" },
@@ -38,16 +40,39 @@ function categoryBadgeVariant(category: Discussion["category"]) {
 
 export default function CommunityPage() {
   const [category, setCategory] = useState<Category>("all");
+  const [sortBy, setSortBy] = useState<SortOption>("recent");
+  const [companyFilter, setCompanyFilter] = useState<string>("all");
   const [showForm, setShowForm] = useState(false);
   const [discussions, setDiscussions] = useState<Discussion[]>(MOCK_DISCUSSIONS);
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
   const [newCategory, setNewCategory] = useState<Discussion["category"]>("general");
 
-  const filtered =
-    category === "all"
-      ? discussions
-      : discussions.filter((d) => d.category === category);
+  const filtered = useMemo(() => {
+    let result =
+      category === "all"
+        ? discussions
+        : discussions.filter((d) => d.category === category);
+
+    if (category === "company" && companyFilter !== "all") {
+      result = result.filter((d) => d.company_id === companyFilter);
+    }
+
+    result = [...result].sort((a, b) => {
+      switch (sortBy) {
+        case "recent":
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        case "upvotes":
+          return b.upvotes_count - a.upvotes_count;
+        case "comments":
+          return b.comments_count - a.comments_count;
+        default:
+          return 0;
+      }
+    });
+
+    return result;
+  }, [category, companyFilter, sortBy, discussions]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -112,12 +137,17 @@ export default function CommunityPage() {
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
               />
-              <Textarea
-                placeholder="What would you like to discuss?"
-                value={newContent}
-                onChange={(e) => setNewContent(e.target.value)}
-                rows={4}
-              />
+              <div className="space-y-1">
+                <Textarea
+                  placeholder="What would you like to discuss?"
+                  value={newContent}
+                  onChange={(e) => setNewContent(e.target.value.slice(0, 2000))}
+                  rows={4}
+                />
+                <p className="text-xs text-muted-foreground text-right">
+                  {newContent.length}/2000
+                </p>
+              </div>
               <div className="flex items-center gap-4">
                 <select
                   value={newCategory}
@@ -145,17 +175,48 @@ export default function CommunityPage() {
         </Card>
       )}
 
-      <div className="flex gap-2">
-        {CATEGORY_TABS.map((tab) => (
-          <Button
-            key={tab.value}
-            variant={category === tab.value ? "default" : "outline"}
-            size="sm"
-            onClick={() => setCategory(tab.value)}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 flex-wrap">
+          {CATEGORY_TABS.map((tab) => (
+            <Button
+              key={tab.value}
+              variant={category === tab.value ? "default" : "outline"}
+              size="sm"
+              onClick={() => {
+                setCategory(tab.value);
+                if (tab.value !== "company") setCompanyFilter("all");
+              }}
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </div>
+        <div className="flex items-center gap-2">
+          {category === "company" && (
+            <select
+              value={companyFilter}
+              onChange={(e) => setCompanyFilter(e.target.value)}
+              className="rounded-md border border-input bg-background px-3 py-1.5 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="all">All Companies</option>
+              {MOCK_COMPANIES.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <span className="text-sm text-muted-foreground">Sort:</span>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as SortOption)}
+            className="rounded-md border border-input bg-background px-3 py-1.5 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            {tab.label}
-          </Button>
-        ))}
+            <option value="recent">Recent</option>
+            <option value="upvotes">Most Upvoted</option>
+            <option value="comments">Most Comments</option>
+          </select>
+        </div>
       </div>
 
       <div className="space-y-4">
@@ -204,9 +265,13 @@ export default function CommunityPage() {
         ))}
 
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-muted-foreground">
-            No discussions found in this category.
-          </div>
+          <EmptyState
+            icon={MessagesSquare}
+            title="No discussions found"
+            description="There are no discussions in this category yet. Start one!"
+            actionLabel="New Discussion"
+            onAction={() => setShowForm(true)}
+          />
         )}
       </div>
     </div>

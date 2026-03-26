@@ -1,10 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { MOCK_COMPANIES, MOCK_DISCUSSIONS } from "@/lib/mock-data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { formatCurrency, formatPercent, formatDate, cn } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -14,12 +23,17 @@ import {
   Calendar,
   TrendingUp,
   Building2,
+  Clock,
 } from "lucide-react";
 
 export default function CompanyDetailPage() {
   const params = useParams();
   const router = useRouter();
   const company = MOCK_COMPANIES.find((c) => c.id === params.id);
+
+  const [introDialogOpen, setIntroDialogOpen] = useState(false);
+  const [introMessage, setIntroMessage] = useState("");
+  const [introReason, setIntroReason] = useState("");
 
   if (!company) {
     return (
@@ -50,6 +64,19 @@ export default function CompanyDetailPage() {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+
+  const hasExistingRequest = ["c1"].includes(company.id);
+
+  function handleIntroSubmit() {
+    if (introMessage.trim().length < 50) {
+      alert("Please provide a message of at least 50 characters.");
+      return;
+    }
+    alert(`Introduction request submitted for ${company?.name}! We'll review your request and get back to you shortly.`);
+    setIntroDialogOpen(false);
+    setIntroMessage("");
+    setIntroReason("");
+  }
 
   return (
     <div className="space-y-6">
@@ -201,7 +228,16 @@ export default function CompanyDetailPage() {
               Interested in learning more about {company.name}? Request an
               introduction to the founding team.
             </p>
-            <Button variant="default">Request Introduction</Button>
+            {hasExistingRequest ? (
+              <Badge variant="secondary" className="gap-1.5 px-3 py-1.5 text-sm">
+                <Clock className="h-3.5 w-3.5" />
+                Pending Introduction Request
+              </Badge>
+            ) : (
+              <Button variant="default" onClick={() => setIntroDialogOpen(true)}>
+                Request Introduction
+              </Button>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -231,6 +267,59 @@ export default function CompanyDetailPage() {
           </div>
         </div>
       )}
+
+      {/* Introduction Request Dialog */}
+      <Dialog open={introDialogOpen} onOpenChange={setIntroDialogOpen}>
+        <DialogContent onClose={() => setIntroDialogOpen(false)}>
+          <DialogHeader>
+            <DialogTitle>Request Introduction to {company.name}</DialogTitle>
+            <DialogDescription>
+              Tell us why you would like to be introduced to the founding team. We will review your request and facilitate the introduction.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                Message <span className="text-red-500">*</span>
+              </label>
+              <Textarea
+                placeholder="Introduce yourself and explain what you would like to discuss with the team... (min 50 characters)"
+                value={introMessage}
+                onChange={(e) => setIntroMessage(e.target.value.slice(0, 500))}
+                rows={4}
+              />
+              <p className="text-xs text-muted-foreground text-right">
+                {introMessage.length}/500
+              </p>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">
+                Why you want the intro
+              </label>
+              <Textarea
+                placeholder="What specific value or synergy do you see? (optional)"
+                value={introReason}
+                onChange={(e) => setIntroReason(e.target.value.slice(0, 500))}
+                rows={3}
+              />
+              <p className="text-xs text-muted-foreground text-right">
+                {introReason.length}/500
+              </p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setIntroDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button
+                onClick={handleIntroSubmit}
+                disabled={introMessage.trim().length < 50}
+              >
+                Submit Request
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

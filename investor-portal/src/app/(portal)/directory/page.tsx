@@ -4,15 +4,20 @@ import { useState, useMemo } from "react";
 import { MOCK_LPS, EXPERT_TAGS } from "@/lib/mock-data";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar } from "@/components/ui/avatar";
-import { Search, MapPin, Filter } from "lucide-react";
+import { EmptyState } from "@/components/empty-state";
+import { Search, MapPin, Filter, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+type SortOption = "name" | "location" | "recent";
 
 export default function DirectoryPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [openToHelpOnly, setOpenToHelpOnly] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>("name");
 
   const toggleTag = (tagId: string) => {
     setSelectedTags((prev) =>
@@ -23,7 +28,7 @@ export default function DirectoryPage() {
   };
 
   const filteredLPs = useMemo(() => {
-    return MOCK_LPS.filter((lp, index) => {
+    let results = MOCK_LPS.filter((lp, index) => {
       const displayName = lp.is_profile_public && lp.full_name
         ? lp.full_name
         : `LP #${index + 1}`;
@@ -40,9 +45,33 @@ export default function DirectoryPage() {
           lp.expert_tags?.some((tag) => tag.id === tagId)
         );
 
-      return matchesSearch && matchesTags;
+      const matchesOpenToHelp =
+        !openToHelpOnly || (lp.open_to_help_with !== null && lp.open_to_help_with !== "");
+
+      return matchesSearch && matchesTags && matchesOpenToHelp;
     });
-  }, [searchQuery, selectedTags]);
+
+    results = [...results].sort((a, b) => {
+      switch (sortBy) {
+        case "name": {
+          const nameA = (a.is_profile_public && a.full_name) ? a.full_name : "ZZZ";
+          const nameB = (b.is_profile_public && b.full_name) ? b.full_name : "ZZZ";
+          return nameA.localeCompare(nameB);
+        }
+        case "location": {
+          const locA = a.location ?? "ZZZ";
+          const locB = b.location ?? "ZZZ";
+          return locA.localeCompare(locB);
+        }
+        case "recent":
+          return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+        default:
+          return 0;
+      }
+    });
+
+    return results;
+  }, [searchQuery, selectedTags, openToHelpOnly, sortBy]);
 
   return (
     <div className="space-y-6">
@@ -54,14 +83,35 @@ export default function DirectoryPage() {
       </div>
 
       <div className="space-y-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search by name or location..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Search by name or location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant={openToHelpOnly ? "default" : "outline"}
+              size="sm"
+              onClick={() => setOpenToHelpOnly(!openToHelpOnly)}
+            >
+              Open to help
+            </Button>
+            <span className="text-sm text-muted-foreground">Sort:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="rounded-md border border-input bg-background px-3 py-1.5 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="name">Name</option>
+              <option value="location">Location</option>
+              <option value="recent">Recently Joined</option>
+            </select>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -157,9 +207,17 @@ export default function DirectoryPage() {
       </div>
 
       {filteredLPs.length === 0 && (
-        <div className="text-center py-12 text-muted-foreground">
-          No LPs found matching your search criteria.
-        </div>
+        <EmptyState
+          icon={Users}
+          title="No LPs found"
+          description="No limited partners match your current search and filter criteria. Try adjusting your filters."
+          actionLabel="Clear Filters"
+          onAction={() => {
+            setSearchQuery("");
+            setSelectedTags([]);
+            setOpenToHelpOnly(false);
+          }}
+        />
       )}
     </div>
   );

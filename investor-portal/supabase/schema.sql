@@ -319,3 +319,80 @@ CREATE POLICY "RSVPs viewable by authenticated"
 CREATE POLICY "Users can manage own RSVPs"
   ON event_rsvps FOR ALL TO authenticated
   USING (user_id = auth.uid());
+
+-- ========================================
+-- Additional tables (v2)
+-- ========================================
+
+-- Notifications table
+CREATE TABLE IF NOT EXISTS notifications (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES user_profiles(id) ON DELETE CASCADE,
+  type TEXT NOT NULL CHECK (type IN ('comment', 'upvote', 'intro', 'job', 'event', 'document')),
+  title TEXT NOT NULL,
+  description TEXT,
+  link TEXT,
+  is_read BOOLEAN DEFAULT false,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_notifications_user_unread ON notifications(user_id, is_read, created_at DESC);
+
+-- Job applications
+CREATE TABLE IF NOT EXISTS job_applications (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  job_id UUID REFERENCES jobs(id) ON DELETE CASCADE,
+  applicant_id UUID REFERENCES user_profiles(id),
+  cv_url TEXT,
+  cover_letter TEXT,
+  linkedin_url TEXT,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'reviewing', 'accepted', 'rejected')),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Job referrals
+CREATE TABLE IF NOT EXISTS job_referrals (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  job_id UUID REFERENCES jobs(id) ON DELETE CASCADE,
+  referrer_id UUID REFERENCES user_profiles(id),
+  referral_name TEXT NOT NULL,
+  referral_email TEXT NOT NULL,
+  referral_linkedin TEXT,
+  reason TEXT,
+  status TEXT DEFAULT 'pending',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Add investment details columns
+ALTER TABLE user_profiles
+  ADD COLUMN IF NOT EXISTS investment_deployed DECIMAL DEFAULT 0,
+  ADD COLUMN IF NOT EXISTS current_value DECIMAL DEFAULT 0;
+
+-- RLS for new tables
+ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE job_applications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE job_referrals ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view own notifications"
+  ON notifications FOR SELECT TO authenticated
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can update own notifications"
+  ON notifications FOR UPDATE TO authenticated
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can create own applications"
+  ON job_applications FOR INSERT TO authenticated
+  WITH CHECK (auth.uid() = applicant_id);
+
+CREATE POLICY "Users can view own applications"
+  ON job_applications FOR SELECT TO authenticated
+  USING (auth.uid() = applicant_id);
+
+CREATE POLICY "Users can create referrals"
+  ON job_referrals FOR INSERT TO authenticated
+  WITH CHECK (auth.uid() = referrer_id);
+
+CREATE POLICY "Users can view own referrals"
+  ON job_referrals FOR SELECT TO authenticated
+  USING (auth.uid() = referrer_id);
