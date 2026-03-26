@@ -396,3 +396,49 @@ CREATE POLICY "Users can create referrals"
 CREATE POLICY "Users can view own referrals"
   ON job_referrals FOR SELECT TO authenticated
   USING (auth.uid() = referrer_id);
+
+-- ====================================================
+-- V3: Activity Feed & Investment Memos
+-- ====================================================
+
+-- Activity Feed table
+CREATE TABLE activity_feed (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  type TEXT NOT NULL CHECK (type IN (
+    'new_investment',
+    'company_update',
+    'discussion_created',
+    'job_posted',
+    'event_created',
+    'document_uploaded',
+    'milestone_achieved'
+  )),
+  title TEXT NOT NULL,
+  description TEXT,
+  link TEXT,
+  metadata JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX idx_activity_feed_created ON activity_feed(created_at DESC);
+
+ALTER TABLE activity_feed ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can view activity feed"
+  ON activity_feed FOR SELECT
+  TO authenticated
+  USING (true);
+
+-- Add investment_memo column to companies
+ALTER TABLE companies ADD COLUMN IF NOT EXISTS investment_memo JSONB;
+-- Structure: { "why_invested": text, "market_opportunity": text, "team_assessment": text, "risk_factors": [text], "thesis": text }
+
+-- Seed activity feed data
+INSERT INTO activity_feed (type, title, description, link, created_at) VALUES
+('new_investment', 'GenSeed invested €500K in EpigenReset', 'Seed round - Epigenetic reprogramming therapies', '/portfolio/c5', NOW() - INTERVAL '2 hours'),
+('company_update', 'NovaSenescence Phase I results exceed expectations', '40% reduction in senescent cell burden confirmed in peer-reviewed study', '/portfolio/c1', NOW() - INTERVAL '5 hours'),
+('discussion_created', 'New discussion: FDA aging biomarker guidance', 'Started by Dr. Sophia Chen - 12 comments', '/community', NOW() - INTERVAL '1 day'),
+('job_posted', 'LunarLogistics is hiring: Robotics Engineer', 'Bremen, Germany - EUR 85,000-110,000 - Full-time', '/jobs', NOW() - INTERVAL '2 days'),
+('milestone_achieved', 'OrbitMaterials signs third telecom LOI', 'Major validation of space-manufactured ZBLAN fiber optics technology', '/portfolio/c2', NOW() - INTERVAL '3 days'),
+('event_created', 'Upcoming: Q1 2025 LP Quarterly Call', 'Apr 10 - 5:00pm CET - Virtual', '/events', NOW() - INTERVAL '4 days'),
+('document_uploaded', 'Q4 2024 Quarterly Report now available', 'Portfolio performance and fund updates', '/documents', NOW() - INTERVAL '5 days');

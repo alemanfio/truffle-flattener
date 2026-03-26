@@ -145,3 +145,27 @@ export interface Notification {
   is_read: boolean;
   created_at: string;
 }
+
+export interface ActivityItem {
+  id: string;
+  type:
+    | "new_investment"
+    | "company_update"
+    | "discussion_created"
+    | "job_posted"
+    | "event_created"
+    | "document_uploaded"
+    | "milestone_achieved";
+  title: string;
+  description: string | null;
+  link: string | null;
+  created_at: string;
+}
+
+export interface InvestmentMemo {
+  why_invested: string;
+  market_opportunity: string;
+  team_assessment: string;
+  risk_factors: string[];
+  thesis: string;
+}

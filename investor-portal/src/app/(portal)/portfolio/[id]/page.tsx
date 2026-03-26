@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { MOCK_COMPANIES, MOCK_DISCUSSIONS } from "@/lib/mock-data";
+import { INVESTMENT_MEMOS } from "@/lib/mock-data-memos";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,13 @@ import {
   TrendingUp,
   Building2,
   Clock,
+  ChevronDown,
+  ChevronUp,
+  AlertTriangle,
+  Lightbulb,
+  Target,
+  Shield,
+  BookOpen,
 } from "lucide-react";
 
 export default function CompanyDetailPage() {
@@ -34,6 +42,7 @@ export default function CompanyDetailPage() {
   const [introDialogOpen, setIntroDialogOpen] = useState(false);
   const [introMessage, setIntroMessage] = useState("");
   const [introReason, setIntroReason] = useState("");
+  const [memoExpanded, setMemoExpanded] = useState(true);
 
   if (!company) {
     return (
@@ -57,6 +66,8 @@ export default function CompanyDetailPage() {
   const relatedDiscussions = MOCK_DISCUSSIONS.filter(
     (d) => d.company_id === company.id
   );
+
+  const memo = INVESTMENT_MEMOS[company.id];
 
   const initials = company.name
     .split(/(?=[A-Z])/)
@@ -180,7 +191,7 @@ export default function CompanyDetailPage() {
           </CardContent>
         </Card>
 
-        {/* Why We Invested */}
+        {/* Why We Invested (short version) */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Why We Invested</CardTitle>
@@ -241,6 +252,111 @@ export default function CompanyDetailPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Investment Memo */}
+      {memo && (
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <BookOpen className="h-5 w-5 text-genseed-blue" />
+                  Investment Memo
+                </CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Our detailed analysis and investment thesis for {company.name}
+                </p>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMemoExpanded(!memoExpanded)}
+              >
+                {memoExpanded ? (
+                  <ChevronUp className="h-4 w-4" />
+                ) : (
+                  <ChevronDown className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+          </CardHeader>
+
+          {memoExpanded && (
+            <CardContent className="space-y-6">
+              {/* Why We Invested */}
+              <section>
+                <h4 className="font-semibold flex items-center gap-2 mb-3 text-genseed-blue">
+                  <Lightbulb className="h-4 w-4" />
+                  Why We Invested
+                </h4>
+                <div className="text-sm leading-relaxed text-muted-foreground space-y-3">
+                  {memo.why_invested.split("\n").map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Market Opportunity */}
+              <section>
+                <h4 className="font-semibold flex items-center gap-2 mb-3 text-genseed-blue">
+                  <Target className="h-4 w-4" />
+                  Market Opportunity
+                </h4>
+                <div className="text-sm leading-relaxed text-muted-foreground space-y-3">
+                  {memo.market_opportunity.split("\n").map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Team Assessment */}
+              <section>
+                <h4 className="font-semibold flex items-center gap-2 mb-3 text-genseed-blue">
+                  <Users className="h-4 w-4" />
+                  Team Assessment
+                </h4>
+                <div className="text-sm leading-relaxed text-muted-foreground space-y-3">
+                  {memo.team_assessment.split("\n").map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+
+              {/* Risk Factors */}
+              <section>
+                <h4 className="font-semibold flex items-center gap-2 mb-3 text-genseed-blue">
+                  <Shield className="h-4 w-4" />
+                  Risk Factors
+                </h4>
+                <ul className="space-y-2">
+                  {memo.risk_factors.map((risk, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
+                    >
+                      <AlertTriangle className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
+                      <span>{risk}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              {/* Investment Thesis */}
+              <section className="bg-genseed-blue-light rounded-lg p-5 border border-genseed-blue/10">
+                <h4 className="font-semibold flex items-center gap-2 mb-3 text-genseed-blue">
+                  <BookOpen className="h-4 w-4" />
+                  Our Investment Thesis
+                </h4>
+                <div className="text-sm leading-relaxed text-muted-foreground space-y-3">
+                  {memo.thesis.split("\n").map((paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            </CardContent>
+          )}
+        </Card>
+      )}
 
       {/* Related Discussions */}
       {relatedDiscussions.length > 0 && (

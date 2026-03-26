@@ -2,12 +2,18 @@
 
 import { useState, useMemo } from "react";
 import { MOCK_DOCUMENTS } from "@/lib/mock-data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Search, FileText, Download } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Search, FileText, Download, Eye, Calendar } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
 type CategoryTab = "all" | "quarterly" | "legal" | "tax" | "memo";
@@ -44,6 +50,7 @@ function categoryBadgeVariant(category: string) {
 export default function DocumentsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<CategoryTab>("all");
+  const [previewDoc, setPreviewDoc] = useState<(typeof MOCK_DOCUMENTS)[number] | null>(null);
 
   const filteredDocuments = useMemo(() => {
     return MOCK_DOCUMENTS.filter((doc) => {
@@ -87,56 +94,178 @@ export default function DocumentsPage() {
         </TabsList>
 
         <TabsContent value={activeTab}>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">
-                {activeTab === "all" ? "All Documents" : CATEGORY_LABELS[activeTab]}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {filteredDocuments.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
+          {filteredDocuments.length === 0 ? (
+            <Card>
+              <CardContent className="p-8">
+                <div className="text-center text-muted-foreground">
                   No documents found.
                 </div>
-              ) : (
-                <div className="divide-y">
-                  {filteredDocuments.map((doc) => (
-                    <div
-                      key={doc.id}
-                      className="flex items-center gap-4 py-3 first:pt-0 last:pb-0"
-                    >
-                      <div className="flex-shrink-0">
-                        <FileText className="h-5 w-5 text-muted-foreground" />
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid gap-4">
+              {filteredDocuments.map((doc) => (
+                <Card
+                  key={doc.id}
+                  className="hover:shadow-md transition-shadow"
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
+                      {/* Document Icon */}
+                      <div className="w-14 h-16 bg-gradient-to-br from-genseed-blue to-genseed-teal rounded flex items-center justify-center flex-shrink-0">
+                        <FileText className="h-7 w-7 text-white" />
                       </div>
 
+                      {/* Document Info */}
                       <div className="flex-1 min-w-0">
                         <p className="font-medium truncate">{doc.title}</p>
-                        <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-3 mt-1.5 text-sm text-muted-foreground flex-wrap">
+                          <Badge
+                            variant={categoryBadgeVariant(doc.category)}
+                            className="text-xs"
+                          >
+                            {CATEGORY_LABELS[doc.category]}
+                          </Badge>
                           <span>{formatFileSize(doc.file_size)}</span>
-                          <span>{formatDate(doc.created_at)}</span>
+                          <span className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {formatDate(doc.created_at)}
+                          </span>
                         </div>
                       </div>
 
-                      <Badge variant={categoryBadgeVariant(doc.category)} className="flex-shrink-0">
-                        {CATEGORY_LABELS[doc.category]}
-                      </Badge>
-
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="flex-shrink-0"
-                        onClick={() => window.open(doc.file_url, "_blank")}
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
+                      {/* Actions */}
+                      <div className="flex gap-2 flex-shrink-0">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setPreviewDoc(doc)}
+                        >
+                          <Eye className="h-4 w-4 mr-1.5" />
+                          <span className="hidden sm:inline">Preview</span>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            if (doc.file_url === "#") {
+                              alert(
+                                "This is a demo document. In production, this would download the actual file."
+                              );
+                            } else {
+                              window.open(doc.file_url, "_blank");
+                            }
+                          }}
+                        >
+                          <Download className="h-4 w-4 mr-1.5" />
+                          <span className="hidden sm:inline">Download</span>
+                        </Button>
+                      </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </TabsContent>
       </Tabs>
+
+      {/* Document Preview Modal */}
+      <Dialog
+        open={previewDoc !== null}
+        onOpenChange={(open) => {
+          if (!open) setPreviewDoc(null);
+        }}
+      >
+        <DialogContent
+          className="max-w-4xl"
+          onClose={() => setPreviewDoc(null)}
+        >
+          <DialogHeader>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="pr-8">{previewDoc?.title}</DialogTitle>
+            </div>
+          </DialogHeader>
+
+          <div className="mt-4">
+            {/* Document metadata */}
+            <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
+              {previewDoc && (
+                <>
+                  <Badge variant={categoryBadgeVariant(previewDoc.category)}>
+                    {CATEGORY_LABELS[previewDoc.category]}
+                  </Badge>
+                  <span>{formatFileSize(previewDoc.file_size)}</span>
+                  <span>{formatDate(previewDoc.created_at)}</span>
+                </>
+              )}
+            </div>
+
+            {/* Preview content */}
+            <div className="rounded-lg border bg-muted/30 min-h-[400px] flex flex-col">
+              {previewDoc?.file_url === "#" ? (
+                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+                  <div className="w-20 h-24 bg-gradient-to-br from-genseed-blue to-genseed-teal rounded-lg flex items-center justify-center mb-4">
+                    <FileText className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">
+                    {previewDoc.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm max-w-md mb-6">
+                    This is a demo document. In production, a PDF preview would
+                    be displayed here. You can download the document to view the
+                    full contents.
+                  </p>
+
+                  {/* Sample content preview */}
+                  <div className="w-full max-w-lg bg-white rounded-lg border p-6 text-left space-y-3">
+                    <div className="h-4 bg-gray-200 rounded w-3/4" />
+                    <div className="h-3 bg-gray-100 rounded w-full" />
+                    <div className="h-3 bg-gray-100 rounded w-5/6" />
+                    <div className="h-3 bg-gray-100 rounded w-full" />
+                    <div className="h-8 mt-4" />
+                    <div className="h-4 bg-gray-200 rounded w-1/2" />
+                    <div className="h-3 bg-gray-100 rounded w-full" />
+                    <div className="h-3 bg-gray-100 rounded w-4/5" />
+                    <div className="h-3 bg-gray-100 rounded w-full" />
+                    <div className="h-3 bg-gray-100 rounded w-2/3" />
+                  </div>
+                </div>
+              ) : (
+                <iframe
+                  src={`${previewDoc?.file_url}#toolbar=0`}
+                  className="w-full min-h-[500px] rounded-lg"
+                  title={previewDoc?.title}
+                />
+              )}
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex justify-end gap-2 mt-4">
+              <Button
+                variant="outline"
+                onClick={() => setPreviewDoc(null)}
+              >
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  if (previewDoc?.file_url === "#") {
+                    alert(
+                      "This is a demo document. In production, this would download the actual file."
+                    );
+                  } else {
+                    window.open(previewDoc?.file_url, "_blank");
+                  }
+                }}
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Download
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
