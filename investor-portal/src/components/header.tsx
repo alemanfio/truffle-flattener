@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { Search } from "lucide-react";
 import { MobileNav } from "@/components/mobile-nav";
 import { CommandPalette } from "@/components/command-palette";
@@ -43,13 +44,16 @@ export function Header() {
 
         <NotificationBell />
 
-        <div className="hidden sm:flex items-center gap-3">
+        <Link
+          href="/settings"
+          className="hidden sm:flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-muted transition-colors"
+        >
           <Avatar name={user?.full_name} size="sm" />
           <div>
             <p className="text-sm font-medium">{user?.full_name || "Investor"}</p>
             <p className="text-xs text-muted-foreground">LP</p>
           </div>
-        </div>
+        </Link>
       </header>
 
       <CommandPalette
